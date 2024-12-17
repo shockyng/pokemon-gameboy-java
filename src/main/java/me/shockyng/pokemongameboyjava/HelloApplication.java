@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 import java.util.concurrent.Executors;
 
+import static me.shockyng.pokemongameboyjava.AssetsResource.*;
+
 public class HelloApplication extends Application implements MainHeroKeyboardListener.MoveHeroListener {
 
     private ImageView hero;
@@ -17,16 +19,12 @@ public class HelloApplication extends Application implements MainHeroKeyboardLis
     private int stepSize = 5;
     private Image heroImage;
     Pane box;
-    String downImagePath = "/images/down.gif";
-    String upImagePath = "/images/up.gif";
-    String leftImagePath = "/images/left.gif";
-    String rightImagePath = "/images/right.gif";
 
     @Override
     public void start(Stage stage) {
         box = new Pane();
-        heroImage = new Image(getClass().getResource("/images/right.gif").toExternalForm());
-        hero = new ImageView(heroImage);
+        hero = new ImageView();
+        updateHeroImage(HERO_IMAGE_RIGHT_PATH);
         hero.setFitHeight(50);
         hero.setFitWidth(50);
         box.getChildren().add(hero);
@@ -51,34 +49,38 @@ public class HelloApplication extends Application implements MainHeroKeyboardLis
 
     public void moveHeroToDown() {
         heroY += stepSize;
-        System.out.println("Hero moved down - Y :" + heroY);
-        if (!hero.getImage().getUrl().contains(downImagePath)) {
-            updateHeroImage(downImagePath);
+        if (!hero.getImage().getUrl().contains(HERO_IMAGE_DOWN_PATH)) {
+            updateHeroImage(HERO_IMAGE_DOWN_PATH);
         }
+
+        System.out.println("Hero moved down - Y :" + heroY);
     }
 
     public void moveHeroToUp() {
         heroY -= stepSize;
-        System.out.println("Hero moved up - Y :" + heroY);
-        if (!hero.getImage().getUrl().contains(upImagePath)) {
-            updateHeroImage(upImagePath);
+        if (!hero.getImage().getUrl().contains(HERO_IMAGE_UP_PATH)) {
+            updateHeroImage(HERO_IMAGE_UP_PATH);
         }
+
+        System.out.println("Hero moved up - Y :" + heroY);
     }
 
     public void moveHeroToLeft() {
         heroX -= stepSize;
-        System.out.println("Hero moved to left - X :" + heroX);
-        if (!hero.getImage().getUrl().contains(leftImagePath)) {
-            updateHeroImage(leftImagePath);
+        if (!hero.getImage().getUrl().contains(HERO_IMAGE_LEFT_PATH)) {
+            updateHeroImage(HERO_IMAGE_LEFT_PATH);
         }
+
+        System.out.println("Hero moved to left - X :" + heroX);
     }
 
     @Override
     public void moveHeroToRight() {
         heroX += stepSize;
-        if (!hero.getImage().getUrl().contains(rightImagePath)) {
-            updateHeroImage(rightImagePath);
+        if (!hero.getImage().getUrl().contains(HERO_IMAGE_RIGHT_PATH)) {
+            updateHeroImage(HERO_IMAGE_RIGHT_PATH);
         }
+
         System.out.println("Hero moved to right - X :" + heroX);
     }
 
